@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://static.invisionapp-cdn.com/global/icons/documents/personalized/v5/Animals%20%26%20Nature.Sun.svg"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/7be999e39d.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="search-container">
+        <form action="">
+          <input
+            type="text"
+            class="form-control"
+            list="datalistOptions"
+            id="exampleDataList"
+            placeholder="Enter city"/>
+            
+          <span class="icon">
+            <button class="fa-solid fa-magnifying-glass"></button>
+          </span>
+
+          <datalist id="datalistOptions">
+            <option value="San Leandro"></option>
+            <option value="San Francisco"></option>
+            <option value="Los Angeles"></option>
+            <option value="Kyiv"></option>
+            <option value="Kharkiv"></option>
+          </datalist>
+        </form>
+        </div>
+
+        <div class="main-container">
+          <div class="weather-summary">
+            <div class="row">
+              <div class="col-1 city">   
+                <button class="fa-solid fa-location-dot"></button> 
+              </div>
+              <div class="col-7 city">   
+                <h1></h1>
+              </div>
+              <div class="col-4 container-button">
+                <span class="temperature-etc">
+                <a href="#" id="celsius-link">°C</a>
+                /
+                <a href="#" id="fahrenheit-link">°F</a>
+                </span>
+              </div>
+
+              <div class="col-4 main-thermometer";>
+                <p class="days month-and-day">
+                  <br />
+                </p>
+                  <br />
+                  <h2>
+                    <img src="image/thermometer_1f321-fe0f.png" alt="thermometr" width="50px"> 
+                    <span id="current-temperature"></span>
+                  </h2>
+                
+               
+                <p class="temperatur-feels">Feels likes</p>
+              </div>
+              <div class="col-4 main-icon">
+                <figure id="figure-img">
+                  <img src="image/sun-behind-cloud.png" class="main-image" alt="main image" width="200px" height="180px"> 
+                  <figcaption></figcaption>
+                </figure>
+              </div>
+              <div class="col-4 main-information">
+                <ul>
+                  <li><i class="fa-solid fa-sun"></i> sunrise <span id="sun-rise"></span></li>
+                  <li><i class="fa-solid fa-moon"></i> sunset <span id="sun-set"></span></li>
+                  <li><i class="fa-solid fa-droplet"></i> <span id="humidity"></span>%</li>
+                  <li><i class="fa-solid fa-wind"></i> <span id="wind-speed"></span> km/h</li>
+                  <li><i class="fa-solid fa-earth-americas"></i> <span id="country"></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row week">
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/cloud.png" alt="sun" width="38" height="38">
+              </div><div class="forecast-temperature" id="monday">24°</div>
+              <div class="forecast-day">Monday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/sun-behind-cloud.png" alt="sun" width="38" height="38">
+              </div>
+              <div class="forecast-temperature">25°</div>
+              <div class="forecast-day">Tuesday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/sun-behind-small-cloud.png" alt="sun" width="38" height="38">
+              </div><div class="forecast-temperature">24°</div>
+              <div class="forecast-day">Wednesday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/sun-behind-cloud.png" alt="sun" width="38" height="38">
+              </div>
+              <div class="forecast-temperature">25°</div>
+              <div class="forecast-day">Thursday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/sun.png" alt="sun" width="38" height="38">
+              </div>
+              <div class="forecast-temperature">27°</div>
+              <div class="forecast-day">Friday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/sun.png" alt="sun" width="38" height="38">
+              </div>
+              <div class="forecast-temperature">27°</div>
+              <div class="forecast-day">Saturday</div>
+            </div>
+            <div class="col-sm">
+              <div class="forecast-icon">
+                <img src="image/rainbow.png" alt="sun" width="38" height="38">
+              </div>
+              <div class="forecast-temperature">23°</div>
+              <div class="forecast-day">Sunday</div>
+            </div>
+          </div>
+        </div>
+        <small>by <a href="https://www.facebook.com/vdovina.viskas" class="my-name">Viktoriia Vdovina</a> from <a href="https://www.shecodes.io/" class="site">SheCodes</a> 👩‍💻</small>
+      </div> 
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
