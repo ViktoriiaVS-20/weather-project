@@ -1,41 +1,42 @@
 // ⏰Change data and time
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
-let day = days[now.getDay()];
-let hour = now.getHours();
-if (hour < 10) {
-  hour = `0${hour}`;
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
+  let day = days[now.getDay()];
+  let hour = now.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${month} ${now.getDate()} <br> ${day} ${hour}:${minutes}`;
 }
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
-}
-let monthDay = document.querySelector(".month-and-day");
-monthDay.innerHTML = `${month} ${now.getDate()} <br> ${day} ${hour}:${minutes}`;
 
 //🙀Change degrees fahrenheit
 function fahrenheitChangeTemperature() {
@@ -89,6 +90,10 @@ searchForm.addEventListener("submit", inputData);
 function currentData(response) {
   console.log(response.data);
   document.querySelector("h1").innerHTML = response.data.name;
+  document.querySelector(".month-and-day").innerHTML = formatDate(
+    response.data.dt * 1000
+  );
+
   document.querySelector("#current-temperature").innerHTML = `${Math.round(
     response.data.main.temp
   )}°`;
