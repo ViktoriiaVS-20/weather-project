@@ -101,23 +101,10 @@ function currentData(response) {
     ".temperatur-feels"
   ).innerHTML = `Feels likes ${Math.round(response.data.main.feels_like)}°`;
 
-  let fig = response.data.weather[0].main;
-  let mainImage = document.querySelector("#figure-img");
-  if (fig === "Clear") {
-    mainImage.innerHTML = `<img src="image/sun.png" class="main-image" alt="main image" width="200px" height="180px"><figcaption>${fig}</figcaption>`;
-  }
-  if (fig === "Clouds") {
-    mainImage.innerHTML = `<img src="image/cloud.png" class="main-image" alt="main image" width="200px" height="180px"><figcaption>${fig}</figcaption>`;
-  }
-  if (fig === "Rain") {
-    mainImage.innerHTML = `<img src="image/cloud-with-rain.png" class="main-image" alt="main image" width="200px" height="180px"><figcaption>${fig}</figcaption>`;
-  }
-  if (fig === "Drizzle") {
-    mainImage.innerHTML = `<img src="image/sun-behind-rain-cloud.png" class="main-image" alt="main image" width="200px" height="180px"><figcaption>${fig}</figcaption>`;
-  }
-  if (fig === "Fog") {
-    mainImage.innerHTML = `<img src="image/fog.png" class="main-image" alt="main image" width="200px" height="180px"><figcaption>${fig}</figcaption>`;
-  }
+  let fig = document.querySelector("figcaption");
+  fig.innerHTML = response.data.weather[0].main;
+  let mainImage = document.querySelector("#image-weather");
+  mainImage.setAttribute("src", `image/${response.data.weather[0].main}.png`);
 
   let sunRise = document.querySelector("#sun-rise");
   let secRise = response.data.sys.sunrise;
