@@ -85,12 +85,15 @@ a {
   color: #fbfdff;
   text-decoration: none;
 }
-#celsius-link {
-  color: #006ec5;
-}
 a:hover {
   color: #006ec5;
 }
+.active {
+  color: #006ec5;
+  cursor: default;
+  text-decoration: none;
+}
+
 .main-thermometer {
   padding-left: 0px;
 }

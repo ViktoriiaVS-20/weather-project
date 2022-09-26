@@ -1,4 +1,3 @@
-// ⏰Change data and time
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let days = [
@@ -38,37 +37,40 @@ function formatDate(timestamp) {
   return `${month} ${now.getDate()} <br> ${day} ${hour}:${minutes}`;
 }
 
-//🙀Change degrees fahrenheit
-function fahrenheitChangeTemperature() {
-  let mainTemperature = document.querySelector("h2");
-  let fahrenheitTemperature = 25 * 1.8 + 32;
-  mainTemperature.innerHTML = `<img src="image/thermometer_1f321-fe0f.png" alt="thermometr" width="50px"> ${fahrenheitTemperature}°`;
+function fahrenheitChangeTemperature(event) {
+  event.preventDefault();
+  let mainTemperature = document.querySelector("#current-temperature");
+  let fahrenheitTemperature = `${Math.round(celsiumTemperature * 1.8 + 32)}°`;
+  mainTemperature.innerHTML = fahrenheitTemperature;
   let feelsLikes = document.querySelector(".temperatur-feels");
-  let fahrenheitTemperatureFeels = 23 * 1.8 + 32;
   feelsLikes.innerHTML = `Feels likes ${Math.round(
-    fahrenheitTemperatureFeels
+    temperatureFeels * 1.8 + 32
   )}°`;
 
-  let daysTemperature = document.querySelector(".forecast-temperature");
-  let fahrenheitTemperatureDays = 24 * 1.8 + 32;
-  daysTemperature.innerHTML = `${Math.round(fahrenheitTemperatureDays)}°`;
-  fahrenheit.style = `color: #006ec5;`;
-  let celsiusLink = document.querySelector("#celsius-link");
-  celsiusLink.style = `color: #fbfdff`;
+  celsius.classList.remove("active");
+  fahrenheit.classList.add("active");
 }
+
+let celsiumTemperature = null;
+let temperatureFeels = null;
 
 let fahrenheit = document.querySelector("#fahrenheit-link");
 fahrenheit.addEventListener("click", fahrenheitChangeTemperature);
 
-//🙀Change degrees celsius
-function celsiusChangeTemperature() {
-  window.location.reload();
+function celsiusChangeTemperature(event) {
+  event.preventDefault();
+  let mainTemperature = document.querySelector("#current-temperature");
+  mainTemperature.innerHTML = `${Math.round(celsiumTemperature)}°`;
+  let feelsLikes = document.querySelector(".temperatur-feels");
+  feelsLikes.innerHTML = `Feels likes ${Math.round(temperatureFeels)}°`;
+
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
 }
 
 let celsius = document.querySelector("#celsius-link");
 celsius.addEventListener("click", celsiusChangeTemperature);
 
-// 🕵️‍♀️Change H1 with search
 function searchLocation(city) {
   let appKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -86,7 +88,6 @@ function inputData(event) {
 let searchForm = document.querySelector("form");
 searchForm.addEventListener("submit", inputData);
 
-// Current temperature
 function currentData(response) {
   console.log(response.data);
   document.querySelector("h1").innerHTML = response.data.name;
@@ -94,12 +95,14 @@ function currentData(response) {
     response.data.dt * 1000
   );
 
+  celsiumTemperature = response.data.main.temp;
+  temperatureFeels = response.data.main.feels_like;
   document.querySelector("#current-temperature").innerHTML = `${Math.round(
-    response.data.main.temp
+    celsiumTemperature
   )}°`;
   document.querySelector(
     ".temperatur-feels"
-  ).innerHTML = `Feels likes ${Math.round(response.data.main.feels_like)}°`;
+  ).innerHTML = `Feels likes ${Math.round(temperatureFeels)}°`;
 
   let fig = document.querySelector("figcaption");
   fig.innerHTML = response.data.weather[0].main;
@@ -137,9 +140,11 @@ function currentData(response) {
     response.data.wind.speed * 3.6
   );
   document.querySelector("#country").innerHTML = response.data.sys.country;
+
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
 }
 
-// Current place
 function retrievePosition(position) {
   let appKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -148,6 +153,7 @@ function retrievePosition(position) {
 
   axios.get(url).then(currentData);
 }
+
 function buttonGeoClick(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrievePosition);
