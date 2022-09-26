@@ -72,9 +72,9 @@ let celsius = document.querySelector("#celsius-link");
 celsius.addEventListener("click", celsiusChangeTemperature);
 
 function searchLocation(city) {
-  let appKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
+  let i = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-  let url = `${apiUrl}?q=${city}&appid=${appKey}&units=metric`;
+  let url = `${apiUrl}?q=${city}&appid=${i}&units=metric`;
 
   axios.get(url).then(currentData);
 }
@@ -145,13 +145,15 @@ function currentData(response) {
 
   celsius.classList.add("active");
   fahrenheit.classList.remove("active");
+
+  getForecast(response.data.coord);
 }
 
 function retrievePosition(position) {
-  let appKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
+  let apiKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
 
-  let url = `${apiUrl}?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${appKey}&units=metric`;
+  let url = `${apiUrl}?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
 
   axios.get(url).then(currentData);
 }
@@ -168,12 +170,43 @@ geoButton.addEventListener("click", buttonGeoClick);
 searchLocation("San Leandro");
 
 // Week weather
-// let appKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
-// let urlWeek = `https://api.openweathermap.org/data/2.5/forecast?q=Paris&appid=${appKey}&units=metric`;
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "0a521eaf234a3a56f45252fac3c737ad";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
 
-// function getWeekWeather(response) {
-//   console.log(response.data);
-//   let degreesMonday = document.querySelector("#monday");
+  axios.get(apiUrl).then(displayForecast);
+}
 
-// }
-// axios.get(urlWeek).then(getWeekWeather);
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row week">`;
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-sm">
+            <div class="forecast-icon">
+              <img src="image/Clouds.png" alt="weather" id="weather-icon" />
+            </div>
+            <div class="forecast-temperature">
+            <span class="forecast-temperature-max" id="monday">24°</span>
+            <span class="forecast-temperature-min" id="monday">21°</span>
+            </div>
+            <div class="forecast-day">${day}</div>
+      </div>
+    `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
