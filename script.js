@@ -84,6 +84,7 @@ function inputData(event) {
   let city = document.querySelector("#exampleDataList").value;
   searchLocation(city);
   geoButton.style = "color: #fbfdff";
+  geoButton.style = ":hover{color: #fbfdff}";
 }
 
 let searchForm = document.querySelector("form");
