@@ -83,6 +83,7 @@ function inputData(event) {
   event.preventDefault();
   let city = document.querySelector("#exampleDataList").value;
   searchLocation(city);
+  geoButton.style = "color: #fbfdff";
 }
 
 let searchForm = document.querySelector("form");
@@ -157,6 +158,7 @@ function retrievePosition(position) {
 function buttonGeoClick(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrievePosition);
+  geoButton.style = "color: #ea3410";
 }
 
 let geoButton = document.querySelector(".fa-location-dot");
