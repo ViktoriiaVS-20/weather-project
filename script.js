@@ -87,9 +87,9 @@ let celsius = document.querySelector("#celsius-link");
 celsius.addEventListener("click", celsiusChangeTemperature);
 
 function searchLocation(city) {
-  let i = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
+  let apiKey = "eb4b9c9f52e39ba16b6dff58dd6bccb0";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-  let url = `${apiUrl}?q=${city}&appid=${i}&units=metric`;
+  let url = `${apiUrl}?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(url).then(currentData);
 }
@@ -106,7 +106,7 @@ let searchForm = document.querySelector("form");
 searchForm.addEventListener("submit", inputData);
 
 function currentData(response) {
-  console.log(response.data);
+  // console.log(response.data);
   document.querySelector("h1").innerHTML = response.data.name;
   document.querySelector(".month-and-day").innerHTML = formatDate(
     response.data.dt * 1000
@@ -114,6 +114,7 @@ function currentData(response) {
 
   celsiumTemperature = response.data.main.temp;
   temperatureFeels = response.data.main.feels_like;
+
   document.querySelector("#current-temperature").innerHTML = `${Math.round(
     celsiumTemperature
   )}°`;
@@ -186,7 +187,6 @@ searchLocation("San Leandro");
 
 // Week weather
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "0a521eaf234a3a56f45252fac3c737ad";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
 
@@ -210,11 +210,9 @@ function displayForecast(response) {
                 forecastDay.weather[0].main
               }.png" alt="weather" id="weather-icon" />
             </div>
-            <div class="forecast-temperature">
-              <span class="forecast-temperature-max" id="monday">${Math.round(
+              <span class="forecast-temperature" id="monday">${Math.round(
                 forecastDay.temp.day
               )}°</span>
-            </div>
             <div class="forecast-day">${formatDay(forecastDay.dt)}</div>
           </div>
         `;
