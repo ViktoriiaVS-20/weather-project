@@ -99,8 +99,6 @@ a:hover {
   padding-left: 0px;
 }
 .days {
-  margin-top: 10px;
-  margin-left: 68px;
   margin: 10px 0 0 68px;
 }
 .temperatur-feels {
@@ -156,4 +154,34 @@ small {
 }
 .site:hover {
   color: #ead110;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 790px) and (orientation: portrait) {
+  .days {
+    margin: 10px 0 0;
+  }
+  .col-7 {
+    width: auto;
+  }
+  .main-information {
+    display: none;
+  }
+  .form-control {
+    margin: 20px 0 10px 0px;
+  }
+  .icon {
+    width: 36px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 550;
+  }
+  .temperatur-feels {
+    margin-left: 5px;
+  }
 }

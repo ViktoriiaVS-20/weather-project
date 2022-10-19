@@ -204,7 +204,7 @@ function displayForecast(response) {
     if (index < 7) {
       forecastHTML =
         forecastHTML +
-        `<div class="col-sm">
+        `<div class="col-4 col-md">
             <div class="forecast-icon">
               <img src="image/${
                 forecastDay.weather[0].main
